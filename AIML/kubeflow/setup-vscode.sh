@@ -11,9 +11,9 @@ declare -a extensions=(
     "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioExptTeam/vsextensions/vscodeintellicode-completions/1.0.22/vspackage"
 )
 for extension in ${extensions[@]}; do
-    curl -Lo /tmp/ext.vsix ${extension}
-    code-server --install-extension /tmp/ext.vsix
-    rm -f /tmp/ext.vsix
+    curl -Lo /tmp/ext.vsix ${extension} \
+        && code-server --install-extension /tmp/ext.vsix \
+        && rm -f /tmp/ext.vsix
 done
 code-server --install-extension ms-toolsai.jupyter 
 code-server --install-extension spmeesseman.vscode-taskexplorer 

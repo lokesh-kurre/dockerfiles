@@ -80,8 +80,8 @@ server {
     proxy_buffering off;
 
     location /${NB_PREFIX}vscode/ {
-
-        proxy_pass http://unix:/run/code-server.sock;
+        proxy_pass http://127.0.0.1:8889/;
+        # proxy_pass http://unix:/run/code-server.sock;
 	
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
@@ -111,9 +111,10 @@ server {
 
 FILE
 
+mkdir -p ${HOME}/.config/code-server/
 cat << 'FILE' > ${HOME}/.config/code-server/config.yaml
-# bind-addr: 0.0.0.0:8889
-socket: /run/code-server.sock
+bind-addr: 0.0.0.0:8889
+# socket: /run/code-server.sock
 auth: none
 password: 8360c51ec82d456940d7fb51
 cert: false
@@ -126,6 +127,7 @@ app-name: vscode-code-server-development
 
 FILE
 
+mkdir -p ${HOME}/.local/share/code-server/User/
 cat << 'FILE' > ${HOME}/.local/share/code-server/User/settings.json
 {
     "workbench.colorTheme": "Default Dark Modern",
