@@ -66,7 +66,14 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=bind,source=apt.conf,target=/etc/apt/apt.conf \
     chmod +x /setup-kubeflow.sh \
     && /setup-kubeflow.sh
-    
+
+COPY kubeflow/setup-vscode.sh /setup-vscode.sh
+
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    --mount=type=bind,source=apt.conf,target=/etc/apt/apt.conf \
+    chmod +x /setup-vscode.sh \
+    && /setup-vscode.sh
 
 COPY kubeflow/requirements.txt /requirements.txt
 RUN python3 -m pip install --no-cache-dir -r requirements.txt
